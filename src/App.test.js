@@ -4,18 +4,18 @@ import {replaceCamelCaseWithSpaces} from './App';
 
 test('button has correct initial text and color', () => {
     render(<App />);
-    const colorButton = screen.getByRole('button', { name: 'Change to blue' });
+    const colorButton = screen.getByRole('button', { name: 'Change to Midnight Blue' });
 
-    expect(colorButton).toHaveStyle({ backgroundColor: 'red' });
+    expect(colorButton).toHaveStyle({ backgroundColor: 'MediumVioletRed' });
 
     fireEvent.click(colorButton);
-    expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
-    expect(colorButton.textContent).toBe('Change to red');
+    expect(colorButton).toHaveStyle({ backgroundColor: 'MidnightBlue' });
+    expect(colorButton.textContent).toBe('Change to Medium Violet Red');
 });
 
 test("button's and checkbox's inital states", () => {
     render(<App />);
-    const colorButton = screen.getByRole('button', { name: 'Change to blue' });
+    const colorButton = screen.getByRole('button', { name: 'Change to Midnight Blue' });
     const checkbox = screen.getByRole('checkbox');
 
     expect(colorButton).toBeEnabled();
@@ -24,7 +24,7 @@ test("button's and checkbox's inital states", () => {
 
 test('dependency of the button from checkbox value', ()=>{
     render(<App/>);
-    const colorButton = screen.getByRole('button', {name: 'Change to blue'});
+    const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'});
     const checkbox = screen.getByRole('checkbox', {name: 'Disable button'});
 
     fireEvent.click(checkbox);
@@ -38,22 +38,28 @@ test('dependency of the button from checkbox value', ()=>{
 
 test('add disabled button grey color', ()=>{
     render(<App/>);
-    const colorButton = screen.getByRole('button', {name: 'Change to blue'});
+    const colorButton = screen.getByRole('button', {name: 'Change to Midnight Blue'});
     const checkbox = screen.getByRole('checkbox', {name: 'Disable button'});
  
-    expect(colorButton).toHaveStyle({ backgroundColor: 'red' });
+    expect(colorButton).toHaveStyle({ backgroundColor: 'MediumVioletRed' });
 
     fireEvent.click(colorButton);
     fireEvent.click(checkbox);
     expect(colorButton).toHaveStyle({ backgroundColor: 'gray' });
 
     fireEvent.click(checkbox);
-    expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
+    expect(colorButton).toHaveStyle({ backgroundColor: 'MidnightBlue' });
 
 });
 
 describe('divide words with "camel case" with spaces into several words', ()=>{
-expect(replaceCamelCaseWithSpaces('Green')).toBe('Green');
-expect(replaceCamelCaseWithSpaces('MiddleGray')).toBe('Middle Gray');
-expect(replaceCamelCaseWithSpaces('PurpleRedWhite')).toBe('Purple Red White');
+    test('works for no inner capital letters', ()=>{
+        expect(replaceCamelCaseWithSpaces('Green')).toBe('Green');
+    });
+    test('works for one inner capital letters', ()=>{
+        expect(replaceCamelCaseWithSpaces('MiddleGray')).toBe('Middle Gray');
+    });
+    test('works for several inner capital letters', ()=>{
+        expect(replaceCamelCaseWithSpaces('PurpleRedWhite')).toBe('Purple Red White');
+    });
 })
