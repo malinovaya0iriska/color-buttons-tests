@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
-
+import {replaceCamelCaseWithSpaces} from './App';
 
 test('button has correct initial text and color', () => {
     render(<App />);
@@ -51,3 +51,9 @@ test('add disabled button grey color', ()=>{
     expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
 
 });
+
+describe('divide words with "camel case" with spaces into several words', ()=>{
+expect(replaceCamelCaseWithSpaces('Green')).toBe('Green');
+expect(replaceCamelCaseWithSpaces('MiddleGray')).toBe('Middle Gray');
+expect(replaceCamelCaseWithSpaces('PurpleRedWhite')).toBe('Purple Red White');
+})
